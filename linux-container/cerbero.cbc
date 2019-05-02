@@ -1,0 +1,22 @@
+import os
+from cerbero.config import Platform, Architecture, DistroVersion
+
+packages_prefix = ''
+packager = 'Cerbero User <cerbero@flexvdi.com>'
+git_root = "https://github.com/flexVDI"
+
+allow_parallel_build = True
+variants = [ 'alsa' ]
+
+distro_packages_install = False
+home_dir = '/home/cerbero/build'
+__arch__
+__build__
+build_tools_sources = "/home/cerbero/build/sources/build-tools-lpc-" + arch
+build_tools_prefix = "/home/cerbero/build/build-tools-lpc-" + arch
+build_tools_cache = build_tools_prefix + ".cache"
+extra_build_tools = [ 'git', 'cmake' ]
+
+# Avoid forcing distro-based Glib/GTK+ module paths
+distro_version = target_distro_version = DistroVersion.DEBIAN_SQUEEZE
+
