@@ -3,13 +3,7 @@ set -e
 
 SRCDIR="$(readlink -e "$(dirname "$0")")"
 if [ -f $HOME/.cerbero/cerbero.cbc ]; then
-    BUILDDIR=$(python - <<EOF
-import sys, os, os.path, imp
-sys.path.append(os.path.join("$SRCDIR", "cerbero"))
-cerbero = imp.load_source("config", os.path.join(os.getenv("HOME"), ".cerbero/cerbero.cbc"))
-print cerbero.home_dir
-EOF
-    )
+    BUILDDIR=$($SRCDIR/cerbero.sh show-config | grep home_dir | cut -d ':' -f 2 | sed -e 's/^[ \t]*//')
 else
     BUILDDIR=$(readlink -e .)
     if [ "$BUILDDIR" == "$SRCDIR" ]; then
@@ -57,7 +51,7 @@ docker run -it --rm \
     --privileged \
     -h cerbero-$arch \
     --name cerbero-$arch \
-    -v "$SRCDIR"/cerbero:/home/cerbero/cerbero:ro \
+    -v "$SRCDIR":/home/cerbero/cerbero:ro \
     -v "$BUILDDIR":/home/cerbero/build \
     $GIT_CREDENTIAL_CACHE \
     -e DISPLAY=$DISPLAY \

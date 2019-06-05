@@ -1,4 +1,4 @@
-FROM amd64/debian:jessie
+FROM amd64/python:3.6-jessie
 RUN apt-get update && apt-get install -y \
     sudo vim git wget fuse gawk make gcc g++ \
     libgmp3-dev libmpfr-dev libmpc-dev libc6-dev-i386 \

@@ -8,6 +8,5 @@ alias ls='ls $LS_OPTIONS'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias cerbero="/usr/bin/python $HOME/cerbero/cerbero-uninstalled"
+alias cerbero="$HOME/cerbero/cerbero.sh"
 cd
-
