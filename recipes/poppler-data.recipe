@@ -1,0 +1,16 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+
+
+class Recipe(recipe.Recipe):
+
+    name = 'poppler-data'
+    version = '0.4.7'
+    licenses = [License.LGPLv2_1Plus]
+    stype = SourceType.TARBALL
+    url = 'https://poppler.freedesktop.org/{0}-{1}.tar.gz'.format(name, version)
+    tarball_checksum = 'e752b0d88a7aba54574152143e7bf76436a7ef51977c55d6bd9a48dccde3a7de'
+
+    btype = BuildType.CMAKE
+
+
+
