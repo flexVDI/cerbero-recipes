@@ -1,6 +1,6 @@
 FROM amd64/python:3.6-jessie
 RUN apt-get update && apt-get install -y \
-    sudo vim git wget fuse gawk make gcc g++ \
+    sudo vim git wget fuse gawk make gcc g++ gperf \
     libgmp3-dev libmpfr-dev libmpc-dev libc6-dev-i386 \
     autoconf automake libtool gettext pkg-config \
     zlib1g-dev \
