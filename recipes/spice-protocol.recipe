@@ -1,0 +1,16 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+
+
+class Recipe(recipe.Recipe):
+    name = 'spice-protocol'
+    version = '0.12.15'
+    # either LGPLv2.1 or MPLv1.1
+    licenses = [License.LGPLv2_1Plus]
+    remotes = {'origin': 'https://gitlab.freedesktop.org/spice/spice-protocol.git'}
+    commit = 'v%s' % version
+    btype = BuildType.MESON
+    meson_options = {'datadir': 'lib'}
+
+    files_devel = ['include/spice-1',
+                   'lib/pkgconfig/spice-protocol.pc']
+
