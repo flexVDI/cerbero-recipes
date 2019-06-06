@@ -1,0 +1,17 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+import os
+
+class Recipe(recipe.Recipe):
+    name = 'libepoxy'
+    version = '1.5.3'
+    remotes = {'origin': 'https://github.com/anholt/libepoxy.git'}
+    commit = version
+    btype = BuildType.MESON
+    meson_options = {'tests': 'false'}
+
+    files_libs = ['libepoxy']
+    files_devel  = ['include/epoxy', 'lib/pkgconfig/epoxy.pc']
+
+    def prepare(self):
+        if self.config.target_platform == Platform.ANDROID:
+            self.meson_options.update({'glx': 'no', 'egl': 'yes', 'x11': 'false'})
