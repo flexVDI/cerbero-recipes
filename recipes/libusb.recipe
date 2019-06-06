@@ -1,0 +1,17 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+
+
+class Recipe(recipe.Recipe):
+
+    name = 'libusb'
+    version = '1.0.22'
+    licenses = [License.LGPLv2_1Plus]
+    commit = 'v1.0.22'
+    remotes = {'origin': 'https://github.com/libusb/libusb.git'}
+
+    config_sh = 'sh autogen.sh'
+    configure_options = ' --enable-usbdk'
+
+    files_libs = ['libusb-1.0']
+    files_devel = ['include/libusb-1.0/libusb',
+                    'lib/pkgconfig/libusb-1.0.pc' ]

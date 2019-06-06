@@ -1,0 +1,28 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+
+
+class Recipe(recipe.Recipe):
+
+    name = 'usbredir'
+    version = '0.8.0'
+    licenses = [License.LGPLv2_1Plus]
+    commit = 'usbredir-0.8.0'
+    remotes = {'origin': 'https://gitlab.freedesktop.org/spice/usbredir.git'}
+
+    config_sh = 'sh autogen.sh'
+    deps = ['libusb']
+
+    files_libs = ['libusbredirhost-1',
+                  'libusbredirparser-1',
+                  'libusbredirhost',
+                  'libusbredirparser']
+    files_devel = [
+                   'lib/pkgconfig/libusbredirparser-0.5.pc',
+                   'lib/pkgconfig/libusbredirhost.pc', 
+                   'include/usbredirfilter.h',
+                   'include/usbredirhost.h',
+                   'include/usbredirparser.h',
+                   'include/usbredirproto.h']
+
+
+
