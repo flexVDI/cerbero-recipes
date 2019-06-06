@@ -1,0 +1,13 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+
+
+class Recipe(recipe.Recipe):
+    name = 'speexdsp'
+    version = '1.2.0'
+    stype = SourceType.TARBALL
+    url = 'https://downloads.xiph.org/releases/speex/speexdsp-1.2.0.tar.gz'
+    tarball_checksum = '682042fc6f9bee6294ec453f470dadc26c6ff29b9c9e9ad2ffc1f4312fd64771'
+    licenses = [{License.BSD_like: ['COPYING']}]
+    deps = ['speex']
+    allow_parallel_build = False
+    autoreconf = True

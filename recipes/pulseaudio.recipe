@@ -1,0 +1,18 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+
+
+class Recipe(recipe.Recipe):
+    name = 'pulseaudio'
+    version = '10.0'
+    stype = SourceType.TARBALL
+    url = 'https://freedesktop.org/software/pulseaudio/releases/pulseaudio-%(version)s.tar.xz'
+    tarball_checksum = 'a3186824de9f0d2095ded5d0d0db0405dc73133983c2fbb37291547e37462f57'
+    deps = ['glib', 'speexdsp', 'libsndfile', 'openssl']
+    configure_options = '--disable-webrtc-aec --disable-tests --with-database=simple'
+    autoreconf = True
+    patches = ['pulseaudio/0001-Do-not-use-Intltool-and-Gettext-together.patch']
+
+    def prepare(self):
+        if self.config.target_platform == Platform.LINUX:
+            self.use_system_libs = True
+            self.configure_options += ' --with-udev-rules-dir={}/lib/udev/rules.d --without-caps'.format(self.config.prefix)

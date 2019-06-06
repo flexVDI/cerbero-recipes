@@ -1,0 +1,26 @@
+From 74d5cfe16698af2bda335b637d19684e5b8140df Mon Sep 17 00:00:00 2001
+From: cerbero <cerbero@flexvdi.com>
+Date: Thu, 6 Jun 2019 18:53:30 +0200
+Subject: [PATCH] Do not use Intltool and Gettext together
+
+---
+ configure.ac | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 9250c05..5711eab 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -102,9 +102,6 @@ PKG_PROG_PKG_CONFIG
+ if test "x$enable_nls" != "xno"; then
+ IT_PROG_INTLTOOL([0.35.0])
+ 
+-AM_GNU_GETTEXT_VERSION([0.18.1])
+-AM_GNU_GETTEXT([external])
+-
+ GETTEXT_PACKAGE=pulseaudio
+ AC_SUBST([GETTEXT_PACKAGE])
+ AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE],["$GETTEXT_PACKAGE"],[Gettext package])
+-- 
+2.1.4
+
