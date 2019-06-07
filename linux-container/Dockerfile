@@ -1,14 +1,14 @@
 FROM amd64/python:3.6-jessie
 RUN apt-get update && apt-get install -y \
-    sudo vim git wget fuse gawk make gcc g++ gperf \
+    sudo vim less git wget fuse gawk make gcc g++ gperf \
     libgmp3-dev libmpfr-dev libmpc-dev libc6-dev-i386 \
-    autoconf automake libtool gettext pkg-config \
+    autoconf automake autogen libtool gettext pkg-config \
     zlib1g-dev \
     python python-argparse python-pyparsing cmake libfuse-dev libglib2.0-dev texinfo gtk-doc-tools \
     flex bison python-dev libxcb-damage0-dev libxcb-shm0-dev libxcb-xfixes0-dev libxcb-xtest0-dev libxi-dev \
     libdbus-1-dev libxtst-dev libegl1-mesa-dev libudev-dev libtext-csv-perl libxrender-dev python-setuptools \
     strace libasound2-dev libxcursor-dev libpciaccess-dev libxrandr-dev libxinerama-dev libxv-dev \
-    libpam-dev fonts-lato python3 checkpolicy policycoreutils
+    libpam-dev fonts-lato python3 checkpolicy policycoreutils libgl1-mesa-dev libgles1-mesa-dev libgles2-mesa-dev
 
 # selinux-policy-dev is not in Jessie...
 WORKDIR /usr/src
