@@ -1,0 +1,32 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+
+
+class Recipe(recipe.Recipe):
+    name = 'boost'
+    version = '1.50.0'
+    licenses = [License.GPLv2Plus]
+    stype = SourceType.TARBALL
+    btype = BuildType.CUSTOM
+    url = 'https://downloads.sourceforge.net/project/boost/boost/1.50.0/boost_1_50_0.tar.bz2'
+    tarball_checksum = 'c9ace2b8c81fa6703d1d17c7e478de3bc51101c5adbdeb3f6cb72cf3045a8529'
+    tarball_dirname = 'boost_1_50_0'
+
+    def compile(self):
+        libraries = [
+            'system',
+            'thread',
+            'test'
+        ]
+        shell.call('./bootstrap.sh --prefix={0} --with-libraries={1}'.format(
+                   self.config.prefix, ','.join(libraries)), self.build_dir)
+
+    def install(self):
+        options = ''
+        if self.config.target_platform == Platform.WINDOWS:
+            user_config = self.relative_path(self.name + '/windows.jam')
+            if self.config.target_arch == Architecture.X86:
+                toolset = 'gcc-mingw32'
+            else:
+                toolset = 'gcc-mingw64'
+            options = '--user-config={0} toolset={1} target-os=windows'.format(user_config, toolset)
+        shell.call('./b2 {0} variant=release install'.format(options), self.build_dir)
