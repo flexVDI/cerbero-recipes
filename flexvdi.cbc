@@ -1,11 +1,4 @@
 from os import path
-from cerbero.bootstrap import windows
 
 distro_packages_install = False
-windows.GCC_VERSION = '4.9.4'
-windows.MINGW_DOWNLOAD_TPL = 'https://depot.flexvdi.com/toolchains/mingw-%s-gcc-%s-%s-%s.tar.xz'
-windows.MINGW_CHECKSUMS.update({
-    'mingw-w32-gcc-4.9.4-linux-x86.tar.xz': 'ab11ea3ee1e449500bd886788ee2d35e13552d36eb3bf1588024d6d802503cb1',
-    'mingw-w64-gcc-4.9.4-linux-x86_64.tar.xz': '7fb6f17343ba64c2629b055bad12fa64fca9525c753fbce45e8f29008115f703'
-})
 external_recipes = { 'flexvdi': (path.join(path.dirname(path.realpath(__file__)), 'recipes'), 1) }
