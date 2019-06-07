@@ -2,3 +2,4 @@ from os import path
 
 distro_packages_install = False
 external_recipes = { 'flexvdi': (path.join(path.dirname(path.realpath(__file__)), 'recipes'), 1) }
+variants.extend(['nov4l2', 'nogi'])
