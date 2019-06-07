@@ -1,0 +1,60 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+
+class Recipe(recipe.Recipe):
+    name = 'spice-gtk'
+    version = '0.36'
+    remotes = {'origin': 'https://gitlab.freedesktop.org/spice/spice-gtk.git'}
+    commit = 'v%s' % version
+    # either LGPLv2.1 or MPLv1.1
+    licenses = [License.LGPLv2_1Plus]
+    btype = BuildType.MESON
+    meson_options = {'werror': 'false', 'smartcard': 'disabled', 'vapi': 'disabled',
+                     'pulse': 'disabled', 'builtin-mjpeg': 'false'}
+    make_check = None
+
+    deps = ['glib', 'libpng', 'zlib', 'pixman', 'fontconfig', 'freetype', 'gtk-doc-lite',
+            'json-glib', 'gstreamer-1.0', 'gst-plugins-base-1.0', 'gst-plugins-good-1.0',
+            'spice-protocol', 'libjpeg-turbo', 'opus', 'pyparsing', 'six', 'openssl']
+    platform_deps = {
+        Platform.WINDOWS: [ 'gtk+', 'usbredir', 'phodav' ],
+        Platform.LINUX: [ 'gtk+', 'usbredir', 'phodav' ],
+        Platform.DARWIN: [ 'gtk+', 'phodav' ]
+    }
+
+    files_devel = ['include/spice-client-glib-2.0',
+                   'lib/pkgconfig/spice-client-glib-2.0.pc']
+
+    files_libs = ['libspice-client-glib-2.0']
+
+    def prepare(self):
+        self.append_env('CFLAGS', ' -Wno-error -std=gnu99')
+        if self.config.target_platform in [Platform.IOS, 
+                                          Platform.ANDROID]:
+            self.meson_options.update({'gtk': 'disabled', 'coroutine': 'gthread'})
+            self.patches = ['spice-gtk/0003-Remove-missing-symbols-from-export-files.patch']
+            self.append_env('LDFLAGS', ' -lm')
+        else:
+            self.patches = ['spice-gtk/0001-SpiceSession-Create-webdav-even-with-NULL-shared_dir.patch']
+        if self.config.target_platform == Platform.DARWIN:
+            self.meson_options.update({'coroutine': 'gthread', 'introspection': 'disabled'})
+            self.append_env('CPPFLAGS', ' -xobjective-c')
+        elif self.config.target_platform == Platform.WINDOWS:
+            self.meson_options.update({'usbredir': 'enabled', 'usb-ids-path': './usb.ids'})
+            self.prepend_env('CPPFLAGS', '-DWIN32_LEAN_AND_MEAN ')
+            self.append_env('LDFLAGS', ' -limm32')
+        elif self.config.target_platform == Platform.LINUX:
+            self.use_system_libs = True
+            # Build pulseaudio BEFORE GStreamer
+            self.deps.insert(0, 'pulseaudio')
+            self.meson_options.update({'usbredir': 'enabled', 'usb-ids-path': './usb.ids'})
+    
+    async def configure(self):
+        # Do not build tests
+        # This cannot be done with a patch because patches do not affect submodules (spice-common)
+        shell.call('find -name meson.build | xargs sed -i "s/subdir(.tests.)//"', self.build_dir)
+        await super(Recipe, self).configure()
+
+    def post_install(self):
+        if self.config.target_platform in [Platform.WINDOWS, Platform.LINUX]:
+            shell.download("http://www.linux-usb.org/usb.ids",
+                           destination=os.path.join(self.config.prefix, 'bin', 'usb.ids'))

@@ -1,0 +1,31 @@
+From 2ba15a7b00bf218934909326408aaf1158279482 Mon Sep 17 00:00:00 2001
+From: Javier Celaya <javier.celaya@flexvdi.com>
+Date: Fri, 3 May 2019 14:21:05 +0200
+Subject: [PATCH] SpiceSession: Create webdav even with NULL shared_dir
+
+A phodav server created with a NULL shared dir is valid and
+results in an error answer to all requests of the webdav channel,
+instead of silently ignoring them. Besides, returning NULL from
+spice_session_get_webdav_server crashes channel_webdav.c:start_client.
+---
+ src/spice-session.c | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/src/spice-session.c b/src/spice-session.c
+index 04ba124..cbcd8c4 100644
+--- a/src/spice-session.c
++++ b/src/spice-session.c
+@@ -2813,10 +2813,6 @@ PhodavServer* spice_session_get_webdav_server(SpiceSession *session)
+     static GMutex mutex;
+ 
+     const gchar *shared_dir = spice_session_get_shared_dir(session);
+-    if (shared_dir == NULL) {
+-        SPICE_DEBUG("No shared dir set, not creating webdav server");
+-        return NULL;
+-    }
+ 
+     g_mutex_lock(&mutex);
+ 
+-- 
+2.20.1
+
