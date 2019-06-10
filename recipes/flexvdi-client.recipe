@@ -1,0 +1,24 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+
+class Recipe(recipe.Recipe):
+    name = 'flexvdi-client'
+    version = '3.1.0'
+    licenses = [License.LGPLv2_1Plus]
+    remotes = {'origin': 'https://github.com/flexVDI/flexvdi-client.git'}
+    commit = '3.1.0'
+    btype = BuildType.CMAKE
+    use_system_libs = True
+
+    deps = ['flexdp', 'glib', 'libsoup', 'json-glib', 'spice-gtk']
+    platform_deps = {
+        Platform.WINDOWS: [ 'poppler', 'cairo' ],
+        Platform.LINUX: [ 'libcups' ],
+        Platform.DARWIN: [ 'libcups', 'gtk-mac-bundler' ]
+    }
+
+    def prepare(self):
+        self.append_env('CFLAGS', '${LDFLAGS}')
+        #self.configure_tpl += '-DCMAKE_BUILD_TYPE=Debug '
+
+    def post_install(self):
+        shell.call('make installer', self.build_dir)
