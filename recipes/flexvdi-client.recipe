@@ -18,7 +18,8 @@ class Recipe(recipe.Recipe):
 
     def prepare(self):
         self.append_env('CFLAGS', '${LDFLAGS}')
-        #self.configure_tpl += '-DCMAKE_BUILD_TYPE=Debug '
+        if self.config.variants.debug:
+            self.configure_tpl += '-DCMAKE_BUILD_TYPE=Debug '
 
     def post_install(self):
         shell.call('make installer', self.build_dir)
