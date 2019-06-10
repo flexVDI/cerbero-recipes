@@ -18,9 +18,9 @@ class Recipe(recipe.Recipe):
     }
 
     def prepare(self):
+        if self.config.variants.debug:
+            self.configure_tpl += '-DCMAKE_BUILD_TYPE=Debug '
         if self.config.target_platform == Platform.WINDOWS:
-            # Fix problem with toolchain Mingw-w64 5.0.4 + GCC 4.9.4
-            self.append_env('CXXFLAGS', ' -D_GLIBCXX_USE_C99 -DMINGW_HAS_SECURE_API')
             self.set_env('DLL_PATH', " ".join([
                 self.config.toolchain_prefix,
                 self.config.prefix
