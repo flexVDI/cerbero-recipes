@@ -1,4 +1,4 @@
 #!/bin/sh
-cd $(dirname "$0")/cerbero/config
+cd $(dirname "$(readlink -f $0)")/cerbero/config
 ../cerbero-uninstalled -c ../../flexvdi.cbc "$@"
 
