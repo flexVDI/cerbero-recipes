@@ -22,4 +22,8 @@ class Recipe(recipe.Recipe):
             self.configure_tpl += '-DCMAKE_BUILD_TYPE=Debug '
 
     def post_install(self):
-        shell.call('make installer', self.build_dir)
+        env = self.env.copy()
+        # NOT_PREFIX_LIBS is a list of library names that must go in the AppImage
+        # but are not in $prefix (e.g. they are system libs in the docker image)
+        env['NOT_PREFIX_LIBS'] = 'liborc|libjbig'
+        shell.call('make installer', self.build_dir, env=env)
