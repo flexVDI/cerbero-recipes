@@ -2,7 +2,7 @@
 
 class Recipe(recipe.Recipe):
     name = 'spice-gtk'
-    version = '0.36'
+    version = '0.37'
     remotes = {'origin': 'https://gitlab.freedesktop.org/spice/spice-gtk.git'}
     commit = 'v%s' % version
     # either LGPLv2.1 or MPLv1.1
