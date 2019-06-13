@@ -9,7 +9,7 @@ class Recipe(recipe.Recipe):
     licenses = [License.LGPLv2_1Plus]
     btype = BuildType.MESON
     meson_options = {'werror': 'false', 'smartcard': 'disabled', 'vapi': 'disabled',
-                     'pulse': 'disabled', 'builtin-mjpeg': 'false'}
+                     'pulse': 'disabled', 'builtin-mjpeg': 'false', 'introspection': 'disabled'}
     make_check = None
 
     deps = ['glib', 'libpng', 'zlib', 'pixman', 'fontconfig', 'freetype', 'gtk-doc-lite',
@@ -36,7 +36,7 @@ class Recipe(recipe.Recipe):
         else:
             self.patches = ['spice-gtk/0001-SpiceSession-Create-webdav-even-with-NULL-shared_dir.patch']
         if self.config.target_platform == Platform.DARWIN:
-            self.meson_options.update({'coroutine': 'gthread', 'introspection': 'disabled'})
+            self.meson_options.update({'coroutine': 'gthread'})
             self.append_env('CPPFLAGS', ' -xobjective-c')
         elif self.config.target_platform == Platform.WINDOWS:
             self.meson_options.update({'usbredir': 'enabled', 'usb-ids-path': './usb.ids'})
