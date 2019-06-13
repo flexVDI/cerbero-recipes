@@ -33,8 +33,6 @@ class Recipe(recipe.Recipe):
             self.meson_options.update({'gtk': 'disabled', 'coroutine': 'gthread'})
             self.patches = ['spice-gtk/0003-Remove-missing-symbols-from-export-files.patch']
             self.append_env('LDFLAGS', ' -lm')
-        else:
-            self.patches = ['spice-gtk/0001-SpiceSession-Create-webdav-even-with-NULL-shared_dir.patch']
         if self.config.target_platform == Platform.DARWIN:
             self.meson_options.update({'coroutine': 'gthread'})
             self.append_env('CPPFLAGS', ' -xobjective-c')
