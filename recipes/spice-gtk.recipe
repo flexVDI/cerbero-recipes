@@ -52,6 +52,12 @@ class Recipe(recipe.Recipe):
         # Do not build tests
         # This cannot be done with a patch because patches do not affect submodules (spice-common)
         shell.call('find -name meson.build | xargs sed -i "s/subdir(.tests.)//"', self.build_dir)
+        # Force the version number
+        shell.call('git -C subprojects/spice-common commit -a -m foo', self.build_dir)
+        shell.call('git add subprojects/spice-common meson.build', self.build_dir)
+        shell.call('git commit -m foo', self.build_dir)
+        shell.call('git tag -af v{0} -m foo'.format(self.version), self.build_dir)
+
         await super(Recipe, self).configure()
 
     def post_install(self):
