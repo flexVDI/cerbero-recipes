@@ -16,15 +16,17 @@ Clone this repo and update the cerbero submodule:
 _NOTE_: When cross-compiling on Linux to Windows, glib recipe seems no need more than 1024 open files.
 Increase the limit where needed.
 
+By default, binaries are built in the debug variant. To build a release variant, call cerbero.sh with the "-v nodebug" option.
+
 ### Examples:
 
 1. Bootstrap the Android build tools and NDK:
    
        ./cerbero.sh -c cross-android-universal.cbc bootstrap
 
-2. Build the flexVDI Desktop Client on Windows 32-bit:
+2. Build the release version of flexVDI Desktop Client on Windows 32-bit:
 
-       ./cerbero.sh -c cross-win32.cbc build flexvdi-client
+       ./cerbero.sh -v nodebug -c cross-win32.cbc build flexvdi-client
 
 ### Building portable Linux binaries
 
