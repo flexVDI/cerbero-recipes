@@ -9,7 +9,7 @@ class Recipe(recipe.Recipe):
     url = 'https://github.com/apple/cups/archive/release-%(version)s.tar.gz'
     tarball_checksum = '1f182f145489e2454969b221056b6b9bac2beb4e38cd75fa12a9ec15d24d5301'
     tarball_dirname = 'cups-release-%(version)s'
-    deps = [ 'openssl' ]
+    deps = [ 'gnutls', 'libusb' ]
 
     make = 'make libs'
     make_install = 'make install-libs install-headers'
