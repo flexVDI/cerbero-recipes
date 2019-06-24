@@ -7,7 +7,8 @@ class Recipe(recipe.Recipe):
     licenses = [License.GPLv2Plus]
     stype = SourceType.TARBALL
     btype = BuildType.CUSTOM
-    url = 'https://downloads.sourceforge.net/project/boost/boost/1.50.0/boost_1_50_0.tar.bz2'
+    _version = version.replace('.', '_')
+    url = 'sf://%(name)s/%(version)s/%(name)s_{0}.tar.bz2'.format(_version)
     tarball_checksum = 'c9ace2b8c81fa6703d1d17c7e478de3bc51101c5adbdeb3f6cb72cf3045a8529'
     tarball_dirname = 'boost_1_50_0'
 
