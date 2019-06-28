@@ -44,6 +44,10 @@ case $arch in
         ;;
 esac
 
+if ! [ -f "$SRCDIR"/linux-container/appimagetool-${arch}.AppImage ]; then
+    curl -L -o "$SRCDIR"/linux-container/appimagetool-${arch}.AppImage https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${arch}.AppImage
+fi
+
 docker build -t linux-cerbero-$arch -f "$DOCKERFILE" "$SRCDIR"/linux-container
 
 [ -S ~/.git-credential-cache/socket ] && GIT_CREDENTIAL_CACHE="-v $HOME/.git-credential-cache/socket:/home/cerbero/.git-credential-cache/socket"
