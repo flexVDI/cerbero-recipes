@@ -13,8 +13,8 @@ Clone this repo and update the cerbero submodule:
 1. Configure `~/.cerbero/cerbero.cbc`. Add home_dir, at least. E.g. `home_dir = '/home/you/cerbero'`
 2. Use `cerbero.sh` script in the root dir of the project. It includes the flexvdi.cbc file and runs from the cerbero config directory so that a) custom recipe paths and toolchains are set, and b) other configuration files are referenced without path.
 
-_NOTE_: When cross-compiling on Linux to Windows, glib recipe seems no need more than 1024 open files.
-Increase the limit where needed.
+_NOTE_: When cross-compiling on Linux to Windows, glib recipe seems to need more than 1024 open files.
+Cerbero will try to increase the limit where needed, but you may be asked to do it manually.
 
 By default, binaries are built in the debug variant. To build a release variant, call cerbero.sh with the "-v nodebug" option.
 
