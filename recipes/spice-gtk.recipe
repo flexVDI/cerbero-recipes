@@ -36,6 +36,7 @@ class Recipe(recipe.Recipe):
         if self.config.target_platform == Platform.DARWIN:
             self.meson_options.update({'coroutine': 'gthread'})
             self.append_env('CPPFLAGS', ' -xobjective-c')
+            self.patches = ['spice-gtk/0001-Fix-depending-on-quartz-on-Mac-OS-X.patch']
         elif self.config.target_platform == Platform.WINDOWS:
             self.meson_options.update({'usbredir': 'enabled', 'usb-ids-path': './usb.ids'})
             self.prepend_env('CPPFLAGS', '-DWIN32_LEAN_AND_MEAN ')
@@ -49,7 +50,7 @@ class Recipe(recipe.Recipe):
     async def configure(self):
         # Do not build tests
         # This cannot be done with a patch because patches do not affect submodules (spice-common)
-        shell.call('find -name meson.build | xargs sed -i "s/subdir(.tests.)//"', self.build_dir)
+        shell.call('find . -name meson.build | xargs sed -i "s/subdir(.tests.)//"', self.build_dir)
         # Force the version number
         shell.call('git -C subprojects/spice-common commit -a -m foo', self.build_dir)
         shell.call('git add subprojects/spice-common meson.build', self.build_dir)

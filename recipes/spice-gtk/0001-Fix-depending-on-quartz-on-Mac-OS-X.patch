@@ -1,0 +1,37 @@
+From 2e60423bcbed77fb1665b4f2df7bf4dfef6ef21e Mon Sep 17 00:00:00 2001
+From: Javier Celaya <javier.celaya@flexvdi.com>
+Date: Tue, 9 Jul 2019 08:54:33 +0200
+Subject: [PATCH] Fix depending on quartz on Mac OS X
+
+---
+ meson.build | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index e5cf85d..9ecdcd6 100644
+--- a/meson.build
++++ b/meson.build
+@@ -142,11 +142,15 @@ if d.found()
+   spice_gtk_deps += d
+   if host_machine.system() != 'windows'
+     spice_gtk_deps += dependency('epoxy')
+-    spice_gtk_deps += dependency('x11')
+-    d = dependency('libva-x11', required: false)
+-    if d.found()
+-      spice_gtk_deps += d
+-      spice_gtk_config_data.set('HAVE_LIBVA', '1')
++    if host_machine.system() == 'darwin'
++      spice_gtk_deps += dependency('quartz')
++    else
++      spice_gtk_deps += dependency('x11')
++      d = dependency('libva-x11', required: false)
++      if d.found()
++        spice_gtk_deps += d
++        spice_gtk_config_data.set('HAVE_LIBVA', '1')
++      endif
+     endif
+   endif
+   spice_gtk_has_gtk = true
+-- 
+2.17.1
+
