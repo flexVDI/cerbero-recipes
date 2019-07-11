@@ -1,5 +1,5 @@
 #!/bin/sh
-SRC_DIR="$(dirname "$(readlink -f $0)")"
+SRC_DIR=$(python -c 'import os,sys; print(os.path.dirname(os.path.realpath(sys.argv[1])))' "$0")
 CONFIG_DIR="$SRC_DIR"/cerbero/config
 
 [ -d "$CONFIG_DIR" ] || {
