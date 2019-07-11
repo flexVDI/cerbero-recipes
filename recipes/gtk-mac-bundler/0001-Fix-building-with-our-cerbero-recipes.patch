@@ -1,0 +1,52 @@
+From fdeec3d2a4fc9d9c2a40b1263af700dfbfc4b492 Mon Sep 17 00:00:00 2001
+From: Javier Celaya <javier.celaya@flexvdi.com>
+Date: Wed, 10 Jul 2019 09:51:03 +0200
+Subject: [PATCH] Fix building with our cerbero recipes
+
+- Do not add hicolor icon theme as it does not exist
+- Do not setup pango as it is statically built
+- Remove the lib prefix in @-prefixed paths
+---
+ bundler/bundler.py | 3 +--
+ bundler/project.py | 4 ----
+ 2 files changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/bundler/bundler.py b/bundler/bundler.py
+index c2b4709..f0c809e 100644
+--- a/bundler/bundler.py
++++ b/bundler/bundler.py
+@@ -319,7 +319,7 @@ class Bundler(object):
+             if not os.path.isabs(line):
+                 for prefix in list(prefixes.values()):
+                     if line.startswith('@'):
+-                        line = re.sub(r'@[-a-z]+/', '', line)
++                        line = re.sub(r'@[-a-z]+/(lib/)?', '', line)
+                     path = os.path.join(prefix, "lib", line)
+                     if os.path.exists(path):
+                         return path
+@@ -501,7 +501,6 @@ class Bundler(object):
+ 
+         self.copy_icon_themes()
+ 
+-        self.create_pango_setup()
+         self.create_gtk_immodules_setup()
+         self.create_gdk_pixbuf_loaders_setup()
+ 
+diff --git a/bundler/project.py b/bundler/project.py
+index 8cbcc58..9e985b4 100644
+--- a/bundler/project.py
++++ b/bundler/project.py
+@@ -606,10 +606,6 @@ class Project(object):
+         for node in nodes:
+             themes.append(Path.from_node(node, False))
+ 
+-        # The hicolor theme is mandatory.
+-        if not [l for l in themes if l.name == "hicolor"]:
+-            themes.append(IconTheme("hicolor"))
+-
+         return themes
+ 
+     def get_meta(self):
+-- 
+2.17.1
+
