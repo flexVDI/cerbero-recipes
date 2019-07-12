@@ -20,6 +20,7 @@ class Recipe(recipe.Recipe):
         self.append_env('CFLAGS', '${LDFLAGS}')
         if self.config.variants.debug:
             self.configure_tpl += '-DCMAKE_BUILD_TYPE=Debug '
+        self.make_check = 'ctest -V'
 
     def post_install(self):
         env = self.env.copy()
