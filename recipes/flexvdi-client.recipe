@@ -2,10 +2,10 @@
 
 class Recipe(recipe.Recipe):
     name = 'flexvdi-client'
-    version = '3.1.0'
+    version = '3.1.1'
     licenses = [License.LGPLv2_1Plus]
     remotes = {'origin': 'https://github.com/flexVDI/flexvdi-client.git'}
-    commit = '3.1.0'
+    commit = '3.1.1'
     btype = BuildType.CMAKE
     use_system_libs = True
 
