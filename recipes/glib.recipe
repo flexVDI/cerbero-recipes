@@ -22,10 +22,10 @@ GLIB_CONFIG_UNVERSAL='''\
 
 class Recipe(recipe.Recipe):
     name = 'glib'
-    version = '2.58.0'
+    version = '2.59.1'
     stype = SourceType.TARBALL
     url = 'gnome://'
-    tarball_checksum = 'c0f4ce0730b4f95c47b711613b5406a887c2ee13ea6d25930d72a4fa7fdb77f6'
+    tarball_checksum = 'd11f1ca55ccd00dd0abf800c2f42d9cc5e3803be321ff6bc79eb3ce2ca1863f0'
     licenses = [License.LGPLv2Plus]
     btype = BuildType.MESON
     meson_options = {'internal_pcre': 'true', 'libmount': 'false', 'dtrace': 'false'}
@@ -143,7 +143,7 @@ class Recipe(recipe.Recipe):
             path1 = '/usr/lib/gio/modules'
             path2 = None
             use_old_uri_scheme = False
-            self.meson_options.update({'selinux': 'false'})
+            self.meson_options.update({'selinux': 'disabled'})
             # Old Debian/Ubuntu
             if self.config.target_distro_version in [DistroVersion.DEBIAN_SQUEEZE,
                                                      DistroVersion.UBUNTU_LUCID,
