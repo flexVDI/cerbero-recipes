@@ -13,7 +13,8 @@ class Recipe(recipe.Recipe):
     platform_deps = {
         Platform.WINDOWS: [ 'poppler', 'cairo' ],
         Platform.LINUX: [ 'libcups' ],
-        Platform.DARWIN: [ 'libcups', 'gtk-mac-bundler' ]
+        Platform.DARWIN: [ 'libcups', 'gtk-mac-bundler' ],
+        Platform.ANDROID: [ 'gst-plugins-bad-1.0' ]
     }
 
     def prepare(self):
