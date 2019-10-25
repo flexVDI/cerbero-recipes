@@ -24,10 +24,10 @@ class Recipe(recipe.Recipe):
     def install(self):
         options = ''
         if self.config.target_platform == Platform.WINDOWS:
-            user_config = self.relative_path(self.name + '/windows.jam')
-            if self.config.target_arch == Architecture.X86:
-                toolset = 'gcc-mingw32'
-            else:
-                toolset = 'gcc-mingw64'
-            options = '--user-config={0} toolset={1} target-os=windows'.format(user_config, toolset)
+            options = 'target-os=windows'
+            user_config = os.path.join(self.build_dir, 'tools', 'build', 'v2', 'user-config.jam')
+            gxx = os.path.join(self.config.toolchain_prefix, 'bin', 'x86_64-w64-mingw32-g++')
+            opts = ': <compileflags>-m32 <linkflags>-m32 ' if self.config.target_arch == Architecture.X86 else ''
+            with open(user_config, 'w') as f:
+                f.write('using gcc : : {} {};'.format(gxx, opts))
         shell.call('./b2 {0} variant=release install'.format(options), self.build_dir)
