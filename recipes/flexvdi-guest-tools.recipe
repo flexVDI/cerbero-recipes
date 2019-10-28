@@ -47,4 +47,4 @@ class Recipe(recipe.Recipe):
                 with open(os.path.join(self.build_dir, 'build_installer.conf'), 'w') as fd:
                     fd.write('BUILD_DIR_i686=' + fgabd32 + '\n')
                     fd.write('BUILD_DIR_x86_64=' + fgabd64 + '\n')
-                shell.call('make installer', self.build_dir)
+                shell.call('make installer', self.build_dir, env=self.env)
