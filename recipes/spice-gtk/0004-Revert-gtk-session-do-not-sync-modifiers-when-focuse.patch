@@ -1,0 +1,37 @@
+From bae17a1979aca3acfb9df4d4e9f50416649f1528 Mon Sep 17 00:00:00 2001
+From: Jorge Olmos <jorge.olmos@flexvdi.com>
+Date: Tue, 5 Nov 2019 12:10:13 +0100
+Subject: [PATCH] Revert "gtk-session: do not sync modifiers when focused"
+
+This reverts commit 15e06eadd0a399a4ddb0c5e1abd0fe0e2af8d096.
+
+On fedora 30 with latest gtk3.24, modifiers state change takes
+several seconds to arrive when switching from caps lock on to off.
+
+This commit mitigated the situation.
+---
+ src/spice-gtk-session.c | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git a/src/spice-gtk-session.c b/src/spice-gtk-session.c
+index 60399d0..b48f92a 100644
+--- a/src/spice-gtk-session.c
++++ b/src/spice-gtk-session.c
+@@ -163,14 +163,6 @@ static void keymap_modifiers_changed(GdkKeymap *keymap, gpointer data)
+ {
+     SpiceGtkSession *self = data;
+ 
+-    /* set_key_locks() is inherently racy, but no need to sync modifiers
+-     * if we have focus as the regular keypress/keyrelease will have set
+-     * the expected modifiers state in the guest.
+-     */
+-    if (self->priv->keyboard_has_focus) {
+-        return;
+-    }
+-
+     spice_gtk_session_sync_keyboard_modifiers(self);
+ }
+ 
+-- 
+2.18.0
+

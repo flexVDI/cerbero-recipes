@@ -8,6 +8,7 @@ class Recipe(recipe.Recipe):
     # either LGPLv2.1 or MPLv1.1
     licenses = [License.LGPLv2_1Plus]
     btype = BuildType.MESON
+    
     meson_options = {'werror': 'false', 'smartcard': 'disabled', 'vapi': 'disabled',
                      'pulse': 'disabled', 'builtin-mjpeg': 'false', 'introspection': 'disabled'}
     make_check = None
@@ -46,6 +47,7 @@ class Recipe(recipe.Recipe):
             # Build pulseaudio BEFORE GStreamer
             self.deps.insert(0, 'pulseaudio')
             self.meson_options.update({'usbredir': 'enabled', 'usb-ids-path': './usb.ids'})
+            self.patches = ['spice-gtk/0004-Revert-gtk-session-do-not-sync-modifiers-when-focuse.patch']
     
     async def configure(self):
         # Do not build tests
