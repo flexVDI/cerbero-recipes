@@ -18,8 +18,8 @@ class Recipe(recipe.Recipe):
             'thread',
             'test'
         ]
-        shell.call('./bootstrap.sh --prefix={0} --with-libraries={1}'.format(
-                   self.config.prefix, ','.join(libraries)), self.build_dir)
+        shell.new_call('./bootstrap.sh --prefix={0} --with-libraries={1}'.format(
+                       self.config.prefix, ','.join(libraries)), self.build_dir, self.logfile)
 
     def install(self):
         options = ''
@@ -31,4 +31,4 @@ class Recipe(recipe.Recipe):
             opts = ': <compileflags>-m32 <linkflags>-m32 ' if self.config.target_arch == Architecture.X86 else ''
             with open(user_config, 'w') as f:
                 f.write('using gcc : : {} {};'.format(gxx, opts))
-        shell.call('./b2 {0} variant=release install'.format(options), self.build_dir)
+        shell.new_call('./b2 {0} variant=release install'.format(options), self.build_dir, self.logfile)

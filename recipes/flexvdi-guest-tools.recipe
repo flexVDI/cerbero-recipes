@@ -28,9 +28,9 @@ class Recipe(recipe.Recipe):
 
     def install(self):
         if self.config.target_platform == Platform.LINUX:
-            shell.call('find -name "*.in" | sed s/.in$// | while read file; do [ -f $file ] && echo $file; done | xargs sed -i s:{0}:/usr/local:'.format(self.config.prefix),
-                       self.build_dir)
-            shell.call('make DESTDIR=target_tmp install', self.build_dir)
+            shell.new_call('find -name "*.in" | sed s/.in$// | while read file; do [ -f $file ] && echo $file; done | xargs sed -i s:{0}:/usr/local:'.format(self.config.prefix),
+                           self.build_dir, self.logfile)
+            shell.new_call('make DESTDIR=target_tmp install', self.build_dir, self.logfile)
             target_tmp = os.path.join(self.build_dir, "target_tmp")
             target_dir = os.path.join(self.build_dir, "target", "usr", "local")
             os.renames(target_tmp + self.config.prefix, target_dir)
@@ -47,4 +47,4 @@ class Recipe(recipe.Recipe):
                 with open(os.path.join(self.build_dir, 'build_installer.conf'), 'w') as fd:
                     fd.write('BUILD_DIR_i686=' + fgabd32 + '\n')
                     fd.write('BUILD_DIR_x86_64=' + fgabd64 + '\n')
-                shell.call('make installer', self.build_dir, env=self.env)
+                shell.new_call('make installer', self.build_dir, self.logfile, env=self.env)

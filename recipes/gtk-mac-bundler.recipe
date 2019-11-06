@@ -15,7 +15,8 @@ class Recipe(recipe.Recipe):
         charset_config = os.path.join(self.config.build_tools_prefix,
                                       'share', 'gettext', 'intl', 'config.charset')
         charset_alias = os.path.join(self.config.prefix, 'lib', 'charset.alias')
-        shell.call(charset_config + ' ' + self.config.build + ' > ' + charset_alias, self.build_dir)
+        shell.new_call(charset_config + ' ' + self.config.build + ' > ' + charset_alias,
+                       self.build_dir, self.logfile)
         shell.copy_dir(
             os.path.join(self.build_dir, 'bundler'),
             os.path.join(self.config.prefix, self.config.py_prefix, 'site-packages', 'bundler'))
