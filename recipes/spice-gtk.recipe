@@ -52,7 +52,7 @@ class Recipe(recipe.Recipe):
     async def configure(self):
         # Do not build tests
         # This cannot be done with a patch because patches do not affect submodules (spice-common)
-        shell.new_call('find . -name meson.build | xargs sed -i "s/subdir(.tests.)//"', self.build_dir, self.logfile)
+        shell.new_call('find . -name meson.build | xargs sed -ibak "s/subdir(.tests.)//"', self.build_dir, self.logfile)
         # Force the version number
         shell.new_call('git -C subprojects/spice-common commit -a -m foo', self.build_dir, self.logfile)
         shell.new_call('git add subprojects/spice-common meson.build', self.build_dir, self.logfile)
