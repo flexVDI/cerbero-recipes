@@ -22,10 +22,10 @@ GLIB_CONFIG_UNVERSAL='''\
 
 class Recipe(recipe.Recipe):
     name = 'glib'
-    version = '2.59.1'
+    version = '2.59.3'
     stype = SourceType.TARBALL
     url = 'gnome://'
-    tarball_checksum = 'd11f1ca55ccd00dd0abf800c2f42d9cc5e3803be321ff6bc79eb3ce2ca1863f0'
+    tarball_checksum = 'dfefafbc37bbcfb8101f3f181f880e8b7a8bee48620c92869ec4ef1d3d648e5e'
     licenses = [License.LGPLv2Plus]
     btype = BuildType.MESON
     meson_options = {'internal_pcre': 'true', 'libmount': 'false', 'dtrace': 'false'}
