@@ -6,7 +6,7 @@ import shutil
 class Recipe(recipe.Recipe):
 
     name = 'flexvdi-guest-tools'
-    version = '3.1.0'
+    version = '3.1.1'
     licenses = [License.LGPLv2_1Plus]
     remotes = {'origin': 'https://git.flexvdi.com/scm/flexvdi/flexvdi-guest-agent.git'}
     commit = 'origin/master'
