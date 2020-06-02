@@ -17,7 +17,7 @@ class Recipe(recipe.Recipe):
             'json-glib', 'gstreamer-1.0', 'gst-plugins-base-1.0', 'gst-plugins-good-1.0',
             'spice-protocol', 'libjpeg-turbo', 'opus', 'pyparsing', 'six', 'openssl']
     platform_deps = {
-        Platform.WINDOWS: [ 'gtk+', 'usbredir', 'phodav' ],
+        Platform.WINDOWS: [ 'gtk+', 'usbredir', 'phodav', 'gst-plugins-bad-1.0' ],
         Platform.LINUX: [ 'gtk+', 'usbredir', 'phodav' ],
         Platform.DARWIN: [ 'gtk+', 'phodav' ]
     }
