@@ -2,13 +2,12 @@
 
 class Recipe(recipe.Recipe):
     name = 'spice-gtk'
-    version = '0.37'
+    version = '0.38'
     remotes = {'origin': 'https://gitlab.freedesktop.org/spice/spice-gtk.git'}
     commit = 'v%s' % version
     # either LGPLv2.1 or MPLv1.1
     licenses = [License.LGPLv2_1Plus]
     btype = BuildType.MESON
-    
     meson_options = {'werror': 'false', 'smartcard': 'disabled', 'vapi': 'disabled',
                      'pulse': 'disabled', 'builtin-mjpeg': 'false', 'introspection': 'disabled'}
     make_check = None
