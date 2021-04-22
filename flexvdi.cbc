@@ -1,4 +1,4 @@
 from os import path
 
 external_recipes = { 'flexvdi': (path.join(path.dirname(path.realpath(__file__)), 'recipes'), 1) }
-variants.extend(['nov4l2', 'nogi'])
+#variants.extend(['nov4l2', 'nogi'])  Disabled by default no need to disable them
