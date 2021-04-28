@@ -18,7 +18,8 @@ class Recipe(recipe.Recipe):
     }
 
     def prepare(self):
-        self.append_env('CFLAGS', '${LDFLAGS}')
+        if self.get_env('LDFLAGS'):
+            self.append_env('CFLAGS', self.get_env('LDFLAGS'))
         if self.config.variants.debug:
             self.configure_tpl += '-DCMAKE_BUILD_TYPE=Debug '
         self.make_check = 'ctest -V'
