@@ -29,4 +29,4 @@ class Recipe(recipe.Recipe):
         # NOT_PREFIX_LIBS is a list of library names that must go in the AppImage
         # but are not in $prefix (e.g. they are system libs in the docker image)
         env['NOT_PREFIX_LIBS'] = 'liborc|libjbig|libwebp'
-        shell.new_call('make installer', self.build_dir, self.logfile, env=env)
+        shell.new_call('make installer', self.make_dir, self.logfile, env=env)
