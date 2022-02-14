@@ -52,6 +52,11 @@ class Recipe(recipe.Recipe):
         # Do not build tests
         # This cannot be done with a patch because patches do not affect submodules (spice-common)
         shell.new_call('find . -name meson.build | xargs sed -ibak "s/subdir(.tests.)//"', self.build_dir, self.logfile)
+
+        # pyparsing API has changed and can't be directly called in version 3.
+        # also the problem is in a submodule, so git refuses to apply a patch on it
+        shell.new_call('sed -ibak "s/\'-m\', module/\'-c\', \'import @0@\'.format(module)/" subprojects/spice-common/meson.build', self.build_dir, self.logfile)
+
         # Force the version number
         shell.new_call('git -C subprojects/spice-common commit -a -m foo', self.build_dir, self.logfile)
         shell.new_call('git add subprojects/spice-common meson.build', self.build_dir, self.logfile)
