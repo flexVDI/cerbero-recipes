@@ -65,7 +65,8 @@ class Recipe(recipe.Recipe):
 
         await super(Recipe, self).configure()
 
-    def post_install(self):
+    async def post_install(self):
         if self.config.target_platform in [Platform.WINDOWS, Platform.LINUX]:
-            shell.download("http://www.linux-usb.org/usb.ids",
-                           destination=os.path.join(self.config.prefix, 'bin', 'usb.ids'))
+            await shell.download("http://www.linux-usb.org/usb.ids",
+                           destination=os.path.join(self.config.prefix, 'bin', 'usb.ids'),
+                           logfile=self.logfile)
