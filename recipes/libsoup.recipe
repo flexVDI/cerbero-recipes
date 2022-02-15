@@ -30,5 +30,3 @@ class Recipe(recipe.Recipe):
                  DistroVersion.UBUNTU_MAVERICK,
                  DistroVersion.UBUNTU_LUCID]:
             self.deps += [ 'glib-networking' ]
-        if self.config.target_platform in [Platform.WINDOWS, Platform.IOS]:
-            self.configure_options += ' --disable-tls-check'
