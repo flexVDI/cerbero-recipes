@@ -1,5 +1,17 @@
 # Custom set of cerbero recipes
 
+## Install requisites
+
+Install python >=3.7 since cerbero 1.20.0 requires it.
+
+Install required python modules
+
+    pip install six pyparsing
+
+Install aditional software required by flexvdi-client recipe when building for windows:
+
+    dnf install mingw32-nsis-3.06.1-2.fc34.x86_64
+
 ## Download
 
 Clone this repo and update the cerbero submodule:
