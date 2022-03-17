@@ -6,7 +6,6 @@ packager = 'Cerbero User <cerbero@flexvdi.com>'
 git_root = "https://github.com/flexVDI"
 
 allow_parallel_build = True
-variants = [ 'alsa' ]
 
 distro_packages_install = False
 home_dir = '/home/cerbero/build'
