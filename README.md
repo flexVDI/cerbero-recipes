@@ -43,7 +43,7 @@ By default, binaries are built in the debug variant. To build a release variant,
 ### Building portable Linux binaries
 
 In order to build Linux binaries that can be run in many other Linux distributions, use the `linux-container.sh` script.
-It launches a docker container based on Debian Jessie.
+It launches a docker container based on Debian Stretch.
 Linux binaries built there will be compatible with many Linux distributions of the last ~5 years.
 
 For 64-bit environment:
