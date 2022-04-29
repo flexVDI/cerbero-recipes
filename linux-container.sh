@@ -48,15 +48,15 @@ if ! [ -f "$SRCDIR"/linux-container/appimagetool-${arch}.AppImage ]; then
     curl -L -o "$SRCDIR"/linux-container/appimagetool-${arch}.AppImage https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${arch}.AppImage
 fi
 
-docker build -t linux-cerbero-$arch -f "$DOCKERFILE" "$SRCDIR"/linux-container
+podman build -t linux-cerbero-$arch -f "$DOCKERFILE" "$SRCDIR"/linux-container
 
 [ -S ~/.git-credential-cache/socket ] && GIT_CREDENTIAL_CACHE="-v $HOME/.git-credential-cache/socket:/home/cerbero/.git-credential-cache/socket"
-docker run -it --rm \
+podman run -it --rm \
     --privileged \
     -h cerbero-$arch \
     --name cerbero-$arch \
     -v "$SRCDIR":/home/cerbero/cerbero:ro \
-    -v "$BUILDDIR":/home/cerbero/build \
+    -v "$BUILDDIR":/home/cerbero/build:Z \
     $GIT_CREDENTIAL_CACHE \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
